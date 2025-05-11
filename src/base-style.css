@@ -1,0 +1,175 @@
+/** Base styles for the application
+ * This file contains the base styles for the application, including
+ * typography, layout, and other global styles.
+
+ * Custom styles should probably go to extra-style.css.
+ */
+
+@page {
+    size: A5;
+    margin: 1cm;
+}
+
+html {
+    background-color: #eee;
+    /* Background for the area outside pages */
+    display: flex;
+    /* Use flexbox to center pages */
+    flex-direction: column;
+    align-items: center;
+    padding: 2cm 0;
+    /* Add some padding top/bottom */
+}
+
+body {
+    font-family: 'Comfortaa', cursive;
+    font-size: 13.2px;
+    width: auto;
+    min-height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    box-sizing: content-box;
+    color: #2e281e;
+}
+
+/* File Drag-Over Feedback */
+body.file-drag-over {
+    position: relative;
+
+    &::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(173, 216, 230, 0.2);
+        outline: 3px dashed #007bff;
+        outline-offset: -3px;
+        z-index: 99;
+        pointer-events: none;
+        box-sizing: border-box;
+    }
+}
+
+/* Toast Message Styles (for information, what is going on) */
+#toast-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2000;
+    /* Ensure it's above other elements */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    .toast-message {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 0.9em;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        white-space: nowrap;
+        max-width: 90vw;
+
+        &.show {
+            opacity: 1;
+        }
+    }
+}
+
+
+/* Drag Logic Styles */
+.drag-ghost-source {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.draggable-item {
+    /* position is set by JS (absolute) */
+    cursor: grab;
+    /* Indicate draggable */
+    width: auto;
+    max-width: none;
+    margin-bottom: 1em;
+    /* Space between items if static */
+    page-break-inside: avoid;
+    z-index: 10;
+    /* Base z-index, will be overridden */
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+
+    &:hover {
+        box-shadow: 0 0 6px rgba(0, 100, 255, 0.5);
+    }
+
+    &.dragging {
+        cursor: grabbing;
+        opacity: 0.7;
+        z-index: 1000;
+        /* Ensure it's above everything while dragging */
+    }
+
+    &.selected {
+        outline: 2px dashed blue;
+        /* Or any other style to indicate selection */
+        outline-offset: 2px;
+    }
+}
+
+/* Page Simulation Styles */
+.page-container {
+    width: 14.8cm;
+    /* A5 width */
+    height: 21cm;
+    /* A5 height */
+    margin-bottom: 1cm;
+    /* Space between pages */
+    padding: 1cm;
+    /* Match @page margin */
+    border: 1px solid #ccc;
+    /* Show page boundary */
+    box-shadow: 0 0 1.5cm rgba(0, 0, 0, 0.2);
+    /* Add shadow for visual effect */
+    box-sizing: border-box;
+    background-color: white;
+    overflow: hidden;
+    /* Hide content overflowing the fixed height */
+    position: relative;
+    /* Ensure this is set for absolute positioning of children */
+}
+
+/* Print Styles */
+@media print {
+
+    html,
+    body {
+        background-color: transparent;
+        display: block;
+        /* Reset flex */
+        padding: 0;
+        width: auto;
+        min-height: auto;
+        margin: 0;
+        border: none;
+        box-shadow: none;
+    }
+
+    .page-container {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        background-color: white;
+        page-break-after: always;
+    }
+}

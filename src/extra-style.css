@@ -1,0 +1,116 @@
+:root {
+    --chord-color: #a8703d;
+}
+
+[data-parser="chord"] {
+
+    line-height: 1.8;
+
+    .lyrics-line {
+        margin-bottom: 0.3em;
+        /* Space between lines */
+        display: block;
+        /* Force line break after each line */
+        text-align: left;
+        /* Align text left within the centered block */
+        margin-left: auto;
+        margin-right: auto;
+        width: fit-content;
+        /* Try sizing to content for centering */
+        white-space: nowrap;
+        /* Prevent wrapping */
+    }
+
+    h2 {
+        /* Style for song titles */
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        text-align: center;
+        color: color-mix(in srgb, var(--chord-color) 80%, transparent 30%);
+        /* Mix chord color with a darker shade */
+    }
+
+    .char-container {
+        position: relative;
+        /* Anchor for the absolute chord */
+        display: inline-block;
+        /* Keep characters flowing */
+    }
+
+    .chord {
+        position: absolute;
+        top: -0.5em;
+        /* Position above the character, adjust as needed */
+        left: 0.1em;
+        /* Align with the start of the character container */
+        font-size: 9.5px;
+        font-weight: normal;
+        color: var(--chord-color);
+        line-height: 1;
+        white-space: nowrap;
+        /* Prevent chord text from wrapping */
+        width: 0;
+        overflow: visible;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .repetition {
+        color: var(--chord-color);
+    }
+}
+
+/* HTML Parser Styles */
+[data-parser="html"] {
+    width: 100%;
+    /* Take full width of the draggable item */
+    height: auto;
+    /* Adjust height automatically */
+    overflow: hidden;
+    /* Hide overflow */
+}
+
+/* SVG Parser Styles */
+[data-parser="svg"] {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+
+    svg {
+        display: block;
+        height: auto;
+        margin: 0 auto;
+
+        >path {
+            /* Target the image with css */
+            fill: var(--chord-color) !important;
+        }
+    }
+}
+
+.draggable-image {
+    max-width: 100%;
+    /* Ensure image fits container */
+    height: auto;
+    /* Maintain aspect ratio */
+    display: block;
+    /* Prevent extra space below image */
+    margin: 0 auto;
+    /* Center image if container is wider */
+}
+
+/* Image Parser Styles */
+.draggable-item:has(.draggable-image) {
+    /* Target image containers */
+    z-index: 5;
+    /* Place images behind songs */
+    border: none;
+    /* Images might not need a border */
+    padding: 0;
+    background-color: transparent;
+}
+
+.note {
+    font-size: 10px;
+    /* Smaller font for notes */
+}

@@ -1,0 +1,16 @@
+{
+  "name": "typesetting-chords",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "scripts": {
+    "start": "bun run --hot index.ts",
+    "build:interactions": "bun build src/interactions/index.ts --outfile dist/interactions.js --target browser --watch --sourcemap=inline"
+  }
+}
