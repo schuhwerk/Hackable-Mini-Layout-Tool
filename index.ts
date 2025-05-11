@@ -1,8 +1,22 @@
-import { readFile, writeFile as fsWriteFile } from 'fs/promises'; // Removed readdir, stat
+import { readFile, writeFile as fsWriteFile, mkdir } from 'fs/promises'; // Removed readdir, stat, Added mkdir
 import path from 'path';
 // Removed parseChordFile and generateDraggableItemHtml imports
 import { serve } from 'bun';
 // Removed cssContent import
+
+const USER_DIR = 'user';
+
+// Ensure user directory exists
+async function ensureUserDirectory() {
+  try {
+    await mkdir(USER_DIR, { recursive: true });
+    console.log(`Directory ./${USER_DIR} ensured.`);
+  } catch (error) {
+    console.error(`Error creating directory ./${USER_DIR}:`, error);
+  }
+}
+
+ensureUserDirectory(); // Call on startup
 
 // Helper to get content type based on file extension
 function getContentType(filePath: string): string {
