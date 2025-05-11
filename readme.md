@@ -13,6 +13,7 @@ But I'm interested in PRs which improve the project and where the project can st
 
 Thanks and have fun!
 
+![Intro-Screen-Recording](./docs/screen-recording.mp4)
 
 ## Get it running
 
