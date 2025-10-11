@@ -2,7 +2,7 @@
     --chord-color: #a8703d;
 }
 
-[data-parser="chord"] {
+[data-parser="chord"], [data-parser="md"] {
 
     line-height: 1.8;
 
@@ -55,7 +55,7 @@
         display: inline-block;
     }
 
-    .repetition {
+    .annotation {
         color: var(--chord-color);
     }
 }

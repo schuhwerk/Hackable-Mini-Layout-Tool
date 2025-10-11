@@ -2,14 +2,16 @@ import type { Parser, ParsedItemData } from './types';
 import { htmlParser } from './htmlParser';
 import { svgParser } from './svgParser';
 import { imageParser } from './imageParser';
-import { chordParser } from './chordParser';
+import { chordTxtParser } from './chordTxtParser';
+import { chordMdParser } from './chordMdParser';
 
 // Collection of all available parsers
 export const parsers: Record<string, Parser> = {
-  [htmlParser.name]: htmlParser,
-  [svgParser.name]: svgParser,
-  [imageParser.name]: imageParser,
-  [chordParser.name]: chordParser,
+    [htmlParser.name]: htmlParser,
+    [svgParser.name]: svgParser,
+    [imageParser.name]: imageParser,
+    [chordTxtParser.name]: chordTxtParser,
+    [chordMdParser.name]: chordMdParser,
 };
 
 /**
@@ -19,7 +21,7 @@ export const parsers: Record<string, Parser> = {
  * @returns The identified Parser or undefined if none match.
  */
 export function findParser(filename: string, content: string): Parser | undefined {
-    const extension = filename.split('.').pop()?.toLowerCase();
+    const extension = filename.split('.').pop()?.toLowerCase() || '';
 
     if (extension === 'html' || extension === 'htm') {
         return parsers.html;
@@ -30,14 +32,17 @@ export function findParser(filename: string, content: string): Parser | undefine
             return parsers.svg;
         }
     }
-    if (extension === 'jpg' || extension === 'jpeg' || extension === 'png' || extension === 'gif' || extension === 'webp' || extension === 'bmp') {
-        // For images, the 'content' is expected to be a URL/path later
-        return parsers.image;
+    if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'].includes(extension)) {
+        return parsers.image; // For images, the 'content' is expected to be a URL/path later
     }
     if (extension === 'txt') {
         // Assume .txt files are chord sheets for now
         // More robust checking could be added here if needed
-        return parsers.chord;
+        return parsers.chordTxt;
+    }
+
+    if (filename.endsWith('.song.md')) {
+        return parsers.chordMd;
     }
 
     // Fallback: Try simple content sniffing if extension didn't match
@@ -54,7 +59,7 @@ export function findParser(filename: string, content: string): Parser | undefine
     // Let's default to chord parser for unknown text-based files for now.
     // Consider making this stricter later.
     if (extension === 'txt' || !extension) { // Treat extensionless as potential chords
-        return parsers.chord;
+        return parsers.chordTxt;
     }
 
 

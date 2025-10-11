@@ -10,7 +10,8 @@
     "typescript": "^5"
   },
   "scripts": {
-    "start": "bun run --hot index.ts",
-    "build:interactions": "bun build src/interactions/index.ts --outfile dist/interactions.js --target browser --watch --sourcemap=inline"
+    "start": "bun build:interactions && bun run --hot index.ts",
+    "watch:interactions": "bun build:interactions --watch",
+    "build:interactions": "bun build src/interactions/index.ts --outfile dist/interactions.js --target browser --sourcemap=inline"
   }
 }

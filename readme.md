@@ -34,7 +34,8 @@ Transform images/text with alt/strg/shift + mouse-wheel (rotation/scale/opacity)
 
 The core functionality revolves around parsing different types of input files. The system uses a set of parsers to handle various file formats, as defined in `src/parsers/index.ts`:
 
-*   **Chord Parser (`chordParser.ts`):** Processes text files (`.txt`) identified as chord sheets. It extracts information from these files.
+*   **Chord Txt Parser (`chordTxtParser.ts`):** Processes text files (`.txt`) identified as chord sheets. It extracts information from these files.
+*   **Chord Md Parser (`chordMdParser.ts`):** Processes markdown files (`.song.md`) identified as chord sheets. It extracts information from the first code-block wrapped in <code>```</code>.
 *   **HTML Parser (`htmlParser.ts`):** Handles HTML files (`.html`, `.htm`), enabling the use of rich text content.
 *   **SVG Parser (`svgParser.ts`):** Parses Scalable Vector Graphics files (`.svg`), for displaying vector-based images.
 *   **Image Parser (`imageParser.ts`):** Manages common image formats (`.jpg`, `.png`, `.gif`, etc.), allowing images to be included.

@@ -128,10 +128,6 @@ body.file-drag-over {
 
 /* Page Simulation Styles */
 .page-container {
-    width: 14.8cm;
-    /* A5 width */
-    height: 21cm;
-    /* A5 height */
     margin-bottom: 1cm;
     /* Space between pages */
     padding: 1cm;
@@ -148,6 +144,8 @@ body.file-drag-over {
     /* Ensure this is set for absolute positioning of children */
 }
 
+
+
 /* Print Styles */
 @media print {
 
@@ -162,6 +160,10 @@ body.file-drag-over {
         margin: 0;
         border: none;
         box-shadow: none;
+    }
+
+    .hide-on-print {
+        display: none !important;
     }
 
     .page-container {
